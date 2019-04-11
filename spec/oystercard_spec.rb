@@ -5,12 +5,9 @@ describe Oystercard do
   let(:station) { double :station }
 
   it { is_expected.to respond_to(:balance) }
-  it { is_expected.to respond_to(:in_journey) }
 
   describe '#initialize' do
-    it 'Assumes user starts off not in a journey' do
-      expect(subject.in_journey).to eq false
-    end
+  
   end
 
   describe '#top_up' do
