@@ -40,6 +40,8 @@ describe Oystercard do
       end
     end
     it "will change in journey state to true" do
+      min = Oystercard::MIN_FARE
+      subject.top_up(min)
       subject.touch_in
       expect(subject.touch_in).to eq true
     end
