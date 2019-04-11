@@ -20,4 +20,10 @@ describe Oystercard do
     end
   end
 
+  describe '#deduct' do
+    it "decreases the balance" do
+      expect { subject.deduct(1) }.to change { subject.balance }.by(-1)
+    end
+  end
+
 end
