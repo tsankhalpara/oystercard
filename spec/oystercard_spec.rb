@@ -7,7 +7,7 @@ describe Oystercard do
   it { is_expected.to respond_to(:balance) }
 
   describe '#initialize' do
-  
+
   end
 
   describe '#top_up' do
@@ -57,18 +57,23 @@ describe Oystercard do
 
     it 'Changes in_journey state to false' do
       subject.touch_in(station)
-      subject.touch_out
+      subject.touch_out(station)
       expect(subject.in_journey?).to eq false
     end
 
     it 'Deducts minimum fare from balance' do
       min = Oystercard::MIN_FARE
-      expect { subject.touch_out }.to change { subject.balance }.by(-min)
+      expect { subject.touch_out(station) }.to change { subject.balance }.by(-min)
     end
 
     it 'Forgets the entry station' do
-      subject.touch_out
+      subject.touch_out(station)
       expect(subject.entry_station).to eq nil
+    end
+
+    it 'stores an exit station' do
+      subject.touch_out(station)
+      expect(subject.exit_station).to eq station
     end
   end
 
