@@ -27,22 +27,33 @@ describe Oystercard do
     end
   end
 
+
   describe '#touch_in' do
     context 'Minimum balance not met' do
       it "raises error" do
         expect{ subject.touch_in }.to raise_error 'Insufficient funds!'
       end
     end
-    it "will change in journey state to true" do
-      min = Oystercard::MIN_FARE
-      subject.top_up(min)
-      subject.touch_in
-      expect(subject.touch_in).to eq true
+
+    context 'Minimum balance met' do
+      before do
+        subject.instance_variable_set(:@balance, Oystercard::MIN_FARE)
+      end
+      it "will change in journey state to true" do
+        subject.instance_variable_set(:@balance, Oystercard::MIN_FARE)
+        subject.touch_in
+        expect(subject.touch_in).to eq true
+      end
     end
   end
 
   describe '#touch_out' do
+    before do
+      subject.instance_variable_set(:@balance, Oystercard::MIN_FARE)
+    end
+
     it "will change in journey state to false" do
+      subject.touch_in
       subject.touch_out
       expect(subject.touch_out).to eq false
     end
