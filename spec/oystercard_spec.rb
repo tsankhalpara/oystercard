@@ -27,12 +27,6 @@ describe Oystercard do
     end
   end
 
-  describe '#deduct' do
-    it "decreases the balance" do
-      expect { subject.deduct(1) }.to change { subject.balance }.by(-1)
-    end
-  end
-
   describe '#touch_in' do
     context 'Minimum balance not met' do
       it "raises error" do
