@@ -41,7 +41,7 @@ describe Oystercard do
       before do
         subject.instance_variable_set(:@balance, Oystercard::MIN_FARE)
       end
-      it 'will change in journey state to true' do
+      it 'Changes in_journey state to true' do
         subject.touch_in(station)
         expect(subject.in_journey?).to eq true
       end
@@ -58,7 +58,7 @@ describe Oystercard do
       subject.instance_variable_set(:@balance, Oystercard::MIN_FARE)
     end
 
-    it 'will change in journey state to false' do
+    it 'Changes in_journey state to false' do
       subject.touch_in(station)
       subject.touch_out
       expect(subject.in_journey?).to eq false
@@ -67,6 +67,11 @@ describe Oystercard do
     it 'Deducts minimum fare from balance' do
       min = Oystercard::MIN_FARE
       expect { subject.touch_out }.to change { subject.balance }.by(-min)
+    end
+
+    it 'Forgets the entry station' do
+      subject.touch_out
+      expect(subject.entry_station).to eq nil
     end
   end
 
