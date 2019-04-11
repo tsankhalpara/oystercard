@@ -10,7 +10,7 @@ describe Oystercard do
       expect(subject.in_journey).to eq false
     end
   end
-  
+
   describe '#top_up' do
     it { is_expected.to respond_to(:top_up).with(1).argument}
 
@@ -34,6 +34,11 @@ describe Oystercard do
   end
 
   describe '#touch_in' do
+    context 'Minimum balance not met' do
+      it "raises error" do
+        expect{ subject.touch_in }.to raise_error 'Insufficient funds!'
+      end
+    end
     it "will change in journey state to true" do
       subject.touch_in
       expect(subject.touch_in).to eq true
