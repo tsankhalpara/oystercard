@@ -1,11 +1,10 @@
 require 'oystercard'
 
 describe Oystercard do
+  let(:entry) { double :station }
+  let(:exit) { double :station }
 
-  let(:entry_station) { double :station }
-  let(:exit_station) { double :station }
-
-  let(:trip) { {entry_station: entry_station, exit_station: exit_station} }
+  let(:trip) { { entry_station: entry, exit_station: exit } }
 
   it { is_expected.to respond_to(:balance) }
 
@@ -31,11 +30,10 @@ describe Oystercard do
     end
   end
 
-
   describe '#touch_in' do
     context 'Minimum balance not met' do
       it 'raises error' do
-        expect{ subject.touch_in(entry_station) }.to raise_error 'Insufficient funds!'
+        expect { subject.touch_in(entry) }.to raise_error 'Insufficient funds!'
       end
     end
 
@@ -44,13 +42,13 @@ describe Oystercard do
         subject.instance_variable_set(:@balance, Oystercard::MIN_FARE)
       end
       it 'Changes in_journey state to true' do
-        subject.touch_in(entry_station)
+        subject.touch_in(entry)
         expect(subject.in_journey?).to eq true
       end
 
       it 'stores an entry station' do
-        subject.touch_in(entry_station)
-        expect(subject.entry_station).to eq entry_station
+        subject.touch_in(entry)
+        expect(subject.entry_station).to eq entry
       end
     end
   end
@@ -61,33 +59,32 @@ describe Oystercard do
     end
 
     it 'Changes in_journey state to false' do
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
+      subject.touch_in(entry)
+      subject.touch_out(exit)
       expect(subject.in_journey?).to eq false
     end
 
     it 'Deducts minimum fare from balance' do
       min = Oystercard::MIN_FARE
-      expect { subject.touch_out(exit_station) }.to change { subject.balance }.by(-min)
+      expect { subject.touch_out(exit) }.to change { subject.balance }.by(-min)
     end
 
     it 'Forgets the entry station' do
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
+      subject.touch_in(entry)
+      subject.touch_out(exit)
       expect(subject.entry_station).to eq nil
     end
 
     it 'stores an exit station' do
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
-      expect(subject.exit_station).to eq exit_station
+      subject.touch_in(entry)
+      subject.touch_out(exit)
+      expect(subject.exit_station).to eq exit
     end
 
     it 'stores the journey history' do
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
+      subject.touch_in(entry)
+      subject.touch_out(exit)
       expect(subject.journeys).to include trip
     end
   end
-
 end
