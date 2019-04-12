@@ -25,11 +25,25 @@ describe Journey do
 
   describe '#completed_journey?' do
 
-    # context 'has been completed' do
-    #   it 'has an entry and exit station' do
-    #     expect(subject.completed_journey?).to eq true
-    #   end
-    # end
+    context 'has been completed' do
+      it 'has an entry and exit station' do
+        subject.start_journey(station)
+        subject.end_journey(station)
+        expect(subject.completed_journey?).to eq true
+      end
+    end
+
+    context 'has not been completed' do
+      it 'has no entry station' do
+        subject.end_journey(station)
+        expect(subject.completed_journey?).to eq false
+      end
+
+      it 'has no exit_station' do
+        subject.start_journey(station)
+        expect(subject.completed_journey?).to eq false
+      end
+    end
   end
 
   describe '#fare' do
