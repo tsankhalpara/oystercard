@@ -47,6 +47,21 @@ describe Journey do
   end
 
   describe '#fare' do
+    context 'completed journey' do
+      it 'returns the minimum fare' do
+        min = Oystercard::MIN_FARE
+        subject.start_journey(station)
+        subject.end_journey(station)
+        expect(subject.fare).to eq min
+      end
+    end
+
+    context 'either no entry or exit station' do
+      it 'returns penalty fare' do
+        penalty = Journey::PENALTY_FARE
+        expect(subject.fare).to eq penalty
+      end
+    end
 
   end
 

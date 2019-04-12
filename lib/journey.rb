@@ -4,6 +4,8 @@ class Journey
 
   attr_accessor :entry_station, :exit_station, :trip
 
+  PENALTY_FARE = 6
+
   def initialize
     @entry_station = entry_station
     @exit_station = exit_station
@@ -24,5 +26,8 @@ class Journey
     @trip[:entry_station] != nil && @trip[:exit_station] != nil
   end
 
+  def fare
+    self.completed_journey? ? Oystercard::MIN_FARE : PENALTY_FARE
+  end
 
 end
