@@ -49,7 +49,7 @@ describe Journey do
   describe '#fare' do
     context 'completed journey' do
       it 'returns the minimum fare' do
-        min = Oystercard::MIN_FARE
+        min = Journey::MIN_FARE
         subject.start_journey(station)
         subject.end_journey(station)
         expect(subject.fare).to eq min

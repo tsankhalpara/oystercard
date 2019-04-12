@@ -1,10 +1,9 @@
-require_relative 'oystercard'
-
 class Journey
 
   attr_accessor :entry_station, :exit_station, :trip
 
   PENALTY_FARE = 6
+  MIN_FARE = 1
 
   def initialize
     @entry_station = entry_station
@@ -27,7 +26,7 @@ class Journey
   end
 
   def fare
-    self.completed_journey? ? Oystercard::MIN_FARE : PENALTY_FARE
+    self.completed_journey? ? MIN_FARE : PENALTY_FARE
   end
 
 end

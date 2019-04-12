@@ -39,7 +39,7 @@ describe Oystercard do
 
     context 'Minimum balance met' do
       before do
-        subject.instance_variable_set(:@balance, Oystercard::MIN_FARE)
+        subject.instance_variable_set(:@balance, Journey::MIN_FARE)
       end
       it 'Changes in_journey state to true' do
         subject.touch_in(entry)
@@ -55,7 +55,7 @@ describe Oystercard do
 
   describe '#touch_out' do
     before do
-      subject.instance_variable_set(:@balance, Oystercard::MIN_FARE)
+      subject.instance_variable_set(:@balance, Journey::MIN_FARE)
     end
 
     it 'Changes in_journey state to false' do
@@ -65,7 +65,7 @@ describe Oystercard do
     end
 
     it 'Deducts minimum fare from balance' do
-      min = Oystercard::MIN_FARE
+      min = Journey::MIN_FARE
       expect { subject.touch_out(exit) }.to change { subject.balance }.by(-min)
     end
 

@@ -2,9 +2,9 @@ require 'station'
 
 describe Station do
 
+  subject { Station.new(:name, :zone)}
 
   describe '#initialize' do
-    subject = Station.new(:name, :zone)
     it 'takes the station name' do
       expect(subject.name).to eq :name
     end
