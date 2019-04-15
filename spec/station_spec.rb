@@ -2,7 +2,7 @@ require 'station'
 
 describe Station do
 
-  subject { Station.new(:name, :zone)}
+  subject { Station.new(:name, :zone) }
 
   describe '#initialize' do
     it 'takes the station name' do

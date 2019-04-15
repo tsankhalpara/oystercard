@@ -22,11 +22,10 @@ class Journey
   end
 
   def completed_journey?
-    @trip[:entry_station] != nil && @trip[:exit_station] != nil
+    !@trip[:entry_station].nil? && !@trip[:exit_station].nil?
   end
 
   def fare
-    self.completed_journey? ? MIN_FARE : PENALTY_FARE
+    completed_journey? ? MIN_FARE : PENALTY_FARE
   end
-
 end
